@@ -1,0 +1,6 @@
+{
+  "name": "ShopBD",
+  "description": "Shop Smart. Live Better. Bangladesh's premier full-stack e-commerce marketplace featuring dual-language (Bangla & English) support, real-time inventory, order tracking, admin portal, and payment integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

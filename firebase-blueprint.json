@@ -1,0 +1,174 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered customer or administrator profile in ShopBD",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "phone": { "type": "string", "maxLength": 25 },
+        "role": { "type": "string", "enum": ["customer", "admin", "manager"] },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Item available for purchase on ShopBD marketplace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 200 },
+        "nameBn": { "type": "string", "maxLength": 200 },
+        "slug": { "type": "string", "maxLength": 200 },
+        "sku": { "type": "string", "maxLength": 50 },
+        "categoryId": { "type": "string", "maxLength": 100 },
+        "brand": { "type": "string", "maxLength": 100 },
+        "shortDescription": { "type": "string", "maxLength": 300 },
+        "description": { "type": "string", "maxLength": 4000 },
+        "price": { "type": "number" },
+        "discountPrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "lowStockThreshold": { "type": "number" },
+        "images": { "type": "array" },
+        "thumbnail": { "type": "string", "maxLength": 500 },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "soldCount": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "draft", "out_of_stock"] },
+        "featured": { "type": "boolean" },
+        "bestSeller": { "type": "boolean" },
+        "newArrival": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "slug", "price", "stock", "categoryId", "status"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category and subcategories",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 100 },
+        "nameBn": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "image": { "type": "string", "maxLength": 500 },
+        "itemCount": { "type": "number" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "slug", "active"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase transaction record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "orderNumber": { "type": "string", "maxLength": 60 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerEmail": { "type": "string", "maxLength": 150 },
+        "customerPhone": { "type": "string", "maxLength": 25 },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "discount": { "type": "number" },
+        "shippingCost": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pending", "Confirmed", "Processing", "Packed", "Shipped", "Out for Delivery", "Delivered", "Cancelled", "Returned", "Refunded"] },
+        "paymentMethod": { "type": "string", "enum": ["cod", "bkash", "nagad", "rocket", "sslcommerz", "card"] },
+        "paymentStatus": { "type": "string", "enum": ["Pending", "Paid", "Failed", "Cancelled", "Refunded"] },
+        "shippingAddress": { "type": "object" },
+        "trackingHistory": { "type": "array" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["orderNumber", "items", "total", "status", "paymentMethod"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Promotional discount codes for cart savings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 64 },
+        "code": { "type": "string", "maxLength": 30 },
+        "type": { "type": "string", "enum": ["percentage", "fixed"] },
+        "value": { "type": "number" },
+        "minimumOrder": { "type": "number" },
+        "maximumDiscount": { "type": "number" },
+        "expiryDate": { "type": "string" },
+        "usageCount": { "type": "number" },
+        "active": { "type": "boolean" }
+      },
+      "required": ["code", "type", "value", "active"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer feedback and rating for a product",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 100 },
+        "rating": { "type": "number" },
+        "comment": { "type": "string", "maxLength": 1000 },
+        "verifiedPurchase": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["productId", "userId", "rating", "comment"]
+    },
+    "Banner": {
+      "title": "Banner",
+      "description": "Promotional hero or deal banner",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "titleBn": { "type": "string", "maxLength": 100 },
+        "subtitle": { "type": "string", "maxLength": 200 },
+        "subtitleBn": { "type": "string", "maxLength": 200 },
+        "image": { "type": "string", "maxLength": 500 },
+        "badge": { "type": "string", "maxLength": 50 },
+        "link": { "type": "string", "maxLength": 200 },
+        "active": { "type": "boolean" }
+      },
+      "required": ["title", "image", "link", "active"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile records with role and contact info"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog products public for reading, managed by admin"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Catalog categories public for reading, managed by admin"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer orders, viewable by owner and admin"
+    },
+    "/coupons/{couponId}": {
+      "schema": "Coupon",
+      "description": "Store discount vouchers"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Product ratings and reviews"
+    },
+    "/banners/{bannerId}": {
+      "schema": "Banner",
+      "description": "Homepage promotional banners"
+    }
+  }
+}
